@@ -11,11 +11,11 @@
 [ ! -f "${chars_csv}" ] && { echo "${chars_csv} is not a valid file" >&2; exit 1; }
 
 # read in lines from code.csv into array
-chars=($(<"${chars_csv}"))
+readarray chars < "${chars_csv}"
 
 # print all codes and names (replacing command with space) and select using rofi
 char_entry=$(
-    for char in ${chars[*]};{
+    for char in "${chars[@]}";{
         echo ${char/,/ }
     }|rofi -dmenu
 )
